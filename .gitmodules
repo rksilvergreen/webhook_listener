@@ -1,0 +1,6 @@
+[submodule ".cursor/rules/shared"]
+	path = .cursor/rules/shared
+	url = https://github.com/rksilvergreen/cursor_rules.git
+[submodule ".cursor/commands/shared"]
+	path = .cursor/commands/shared
+	url = https://github.com/rksilvergreen/cursor_commands.git
