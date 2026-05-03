@@ -37,11 +37,17 @@ class WebhookListener {
   /// `WebhookListener` when not provided.
   final String appName;
 
+  /// When `true`, the raw JSON payload of each accepted request is
+  /// pretty-printed to stdout before being dispatched to [handler].
+  /// Defaults to `false`.
+  final bool log;
+
   WebhookListener({
     required this.port,
     this.route,
     required this.handler,
     this.appName = 'WebhookListener',
+    this.log = false,
   });
 
   /// Starts the HTTP server and returns the running [HttpServer] instance.
@@ -77,6 +83,10 @@ class WebhookListener {
 
   Future<Response> _handle(Request req) async {
     final raw = await req.readAsString();
+
+    if (log) {
+      stdout.writeln(JsonEncoder.withIndent('  ').convert(jsonDecode(raw)));
+    }
 
     final dynamic decoded;
     try {
